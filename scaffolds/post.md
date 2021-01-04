@@ -1,5 +1,8 @@
 ---
 title: {{ title }}
+auther: gzj
 date: {{ date }}
-tags:
+tags: 
+categories:
+description: 
 ---
