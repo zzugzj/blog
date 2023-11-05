@@ -14,7 +14,7 @@ date: 2021-01-01 21:38:13
 
 Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域。
 
-<img src="https://i.loli.net/2020/05/05/WhxvawGiBzqLAMb.png" alt="image-20200505142316196" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/zzugzj/blogImg/master/github/WhxvawGiBzqLAMb.png" alt="image-20200505142316196" style="zoom: 50%;" />
 
 #### 程序计数器
 
@@ -28,7 +28,7 @@ Java虚拟机栈是线程私有的，它的生命周期和线程相同。
 
 <img src="https://i.loli.net/2020/05/14/myXArgNB1WKhE6a.png" alt="image-20200514224901767" style="zoom: 67%;" />
 
-每个方法被执行的时候，Java虚拟机都会同步的创建一个栈帧用于存储局部变量表、操作数栈、动态连接、方法出口等信息。
+每个方法被执行的时候，Java虚拟机都会同步的创建一个栈帧用于存储局部变量表、操作数栈、动态连接、方法出口等信息。当方法返回后，任何由它所分配的局部存储空间被释放。
 
 局部变量表存放了编译期可知的各种Java虚拟机基本数据类型、对象引用类型和returnAddress类型(指向一条字节码指令的地址)。局部变量表所需的内存空间在编译期间完成分配，当进入一个方法时，这个方法需要在栈帧中分配多大的局部变量空间是完全确定的。
 
@@ -48,7 +48,7 @@ Java堆既可以被实现成固定大小的，也可以是扩展的，不过当�
 
 #### 方法区
 
-方法区与Java堆一样，是各个线程共享的内存区域，它用于存储已被虚拟机加载的类型信息、常量、静态变量、即时编译器编译后的代码缓存等数据。
+方法区与Java堆一样，是各个线程共享的内存区域，它用于存储已被虚拟机加载的类的信息、常量、静态变量、即时编译器编译后的代码缓存等数据。
 
 在jdk8以前，很多人把方法区称为永久代，但两者不同，当初是hotspot虚拟机设计团队选择使用永久代来实现方法区，这样就可以让hotspot的垃圾收集器可以像管理Java堆一样管理方法区。但这样设计让Java应用更容易遇到内存溢出问题(永久代有-XX:MaxPermSize上限)，在jdk8时，完全废弃了永久代的概念，改为在本地内存实现的元空间。
 
@@ -69,6 +69,10 @@ Java堆既可以被实现成固定大小的，也可以是扩展的，不过当�
 在jdk1.4中新加入了NIO类，引入了基于通道和缓冲区的I/O方式，它可以使用Native函数库直接分配堆外内存，然后通过一个存储在Java堆里面的DirectByteBuffer对象作为这块内存的引用进行操作。这样可以在一些场景中显著提高性能，因为避免了在Java堆和Native堆中来回复制数据。
 
 直接内存会受到本机总内存大小以及处理器寻址空间的限制，不当处理回出现OutOfMemory异常。
+
+**偶然看见个比较好的图：**
+
+![img](https://raw.githubusercontent.com/zzugzj/blogImg/master/img/v2-413187d50e43f9984277a42af16913c4_720w.jpg)
 
 ### HotSpot虚拟机的对象
 
@@ -132,5 +136,29 @@ public class StaticTest {
 
 原因是在jdk6中，intern方法会把首次遇到的字符串实例复制到永久代的字符串常量池中存储，返回的也是永久代的字符串实例的引用，但由于stringBuilder创建的在Java堆上，所以false。
 
-jdk7的intern方法不需要拷贝字符串实例到永久代了，字符串常量池已经在Java堆中了，所以intern返回的引用和StringBuilder创建的是一个。而Java这个字符串在执行main时已经加载到了字符串常量池中，所以是true。
+而JDK 7（以及部分其他虚拟机，例如JRockit）的intern()方法实现就不需要再拷贝字符串的实例到永久代了，**既然字符串常量池已经移到Java堆中，那只需要在常量池里记录一下首次出现的实例引用即可，因此intern()返回的引用和由StringBuilder创建的那个字符串实例就是同一个**。而对str2比较返回false，这是因为“java”这个字符串在执行String-Builder.toString()之前就已经出现过了，字符串常量池中已经有它的引用，不符合intern()方法要求“首次遇到”的原则，“计算机软件”这个字符串则是首次出现的，因此结果返回true。
+
+Java这个字符串在执行main时已经加载到了字符串常量池中，所以是false。
+
+**intern作用：intern()的本质是改变字符串引用的方向,让对等价字符串对象的引用都指向同一个字符串对象,使得多余的等价字符串对象可以被回收，防止在堆中new出多个相同的字符串都有引用无法被回收的情况。**
+
+```java
+String s1 = new String("计s机软件");
+//String s1 = new String("计s机软件");等价于String s = "计s机软件"; String s1 = new String(s);
+//所以常量池已经有"计s机软件"，s1就会在堆里创建一个对象，而s1.intern()是之前加载到常量池的对象，所以是false
+System.out.println(s1.intern() == s1);//f
+
+String s2 = new StringBuilder("ja").append("va").toString();
+//这个是因为java字符串在jvm加载时就已经进入常量池，s2是新创建在堆里的对象，所以不等
+System.out.println(s2.intern() == s2);//f
+
+String s3 = new StringBuilder("计算机").append("软件").toString();
+//字符串常量池已经移到Java堆中，那只需要在常量池里记录一下首次出现的实例引用
+//s3字符串是首次出现的，s3.intern实际上还是s3的实例引用，所以相等。
+System.out.println(s3.intern() == s3);//t
+
+String s5 = "计算机软件";
+//因为字符串常量池记录的是首次出现在堆里的字符串的实例引用，所以s3是堆的实例引用，s5是常量池里记录的堆的实例引用，所以相等。
+System.out.println(s5 == s3);//t
+```
 

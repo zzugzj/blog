@@ -1,0 +1,117 @@
+social:
+  - name: RSS
+    # set rss in your root config
+    # https://github.com/hexojs/hexo-generator-feed
+    link: /atom.xml # config.feed.path
+    icon: icon-rss-line
+    color: orange
+  - name: GitHub
+    link: https://github.com/zzugzj
+    icon: icon-github-line
+    color: '#181717'
+  - name: E-Mail
+    link: mailto:10456430552@qq.com
+    icon: icon-mail-line
+    color: '#8E71C1'
+
+banner:
+  enable: true
+  title: 莫在浮沙筑高台
+  border: true
+  cloud:
+    enable: true
+    color: white
+  go_down:
+    enable: true
+    icon: icon-arrow-down-s-line
+
+avatar:
+  enable: true
+  url: /images/avatar.jpg
+  rounded: true
+  opacity: 1
+  mickey_mouse: false
+  status:
+    enable: true
+    emoji: 😊
+    message: 疯狂Coding...
+
+menu:
+  home:
+    path: /
+    icon: icon-home-4-line
+  list:
+    - type: archives
+      path: /archives/
+      icon: icon-archive-line
+    - type: categories
+      path: /categories/
+      icon: icon-folder-2-line
+    - type: tags
+      path: /tags/
+      icon: icon-price-tag-3-line
+    # - path: https://www.yunyoujun.cn
+    #   icon: icon-cloud-line
+    #   count: 你猜
+  custom:
+    title: 文档
+    path: https://zzugzj.github.io
+    icon: icon-settings-line
+
+pages:
+post_meta:
+  item_text: true
+types:
+  link:
+    color: blue
+    icon: icon-external-link-line
+  github:
+    color: black
+    icon: icon-github-line
+creative_commons:
+  license: by-nc-sa
+  post: true
+  language: deed.zh
+  clipboard: true  # 是否在复制文章时，在剪贴板中追加版权信息
+say:
+  enable: true
+  api: https://cdn.jsdelivr.net/gh/ElpsyCN/say@gh-pages/sentences.json
+  # https://developer.hitokoto.cn/sentence/
+  hitokoto:
+    enable: true
+    api: https://v1.hitokoto.cn
+# 在每年的指定日期，开启灰色默哀模式。
+mourn:
+  enable: true
+  days:
+    - 4-4
+reward:
+  enable: true
+  icon: icon-hand-coin-line
+  comment: I'm so cute. Please give me money.
+  # url: https://github.com/YunYouJun/yunyoujun.github.io/issues/96
+  methods:
+    - name: 支付宝
+      path: https://raw.githubusercontent.com/zzugzj/blogImg/master/github/image-20231105142404489.png
+      color: '#00A3EE'
+      icon: icon-alipay-line
+    - name: 微信支付
+      path: https://raw.githubusercontent.com/zzugzj/blogImg/master/github/image-20231105142333140.png
+      color: '#2DC100'
+      icon: icon-wechat-pay-line
+footer:
+  since: 2021
+  powered:
+    enable: false
+  live_time:
+    enable: true
+    prefix: 本博客已萌萌哒地运行
+    suffix: (●'◡'●)
+    start_time: '2021-01-01T00:00:00'
+  support:
+    enable: true
+    title: GitHub
+    link: https://github.com/
+    logo: https://raw.githubusercontent.com/zzugzj/blogImg/master/github/github-mark.png
+    prefix: 本网站由
+    suffix: 提供代码托管
