@@ -13,7 +13,8 @@ social:
     link: mailto:10456430552@qq.com
     icon: icon-mail-line
     color: '#8E71C1'
-
+local_search:
+  enable: true
 banner:
   enable: true
   title: 莫在浮沙筑高台
@@ -57,7 +58,78 @@ menu:
     title: 文档
     path: https://zzugzj.github.io
     icon: icon-settings-line
+comment:
+  candidates:
+    - waline
+    - twikoo
+    # - giscus
+  tips:
+    - 如果您有任何关于博客内容的相关讨论，欢迎前往 <a href="https://github.com/zzugzj/zzugzj.github.io/discussions" target="_blank">GitHub Discussions</a> 与我交流。
 
+waline:
+  enable: true
+  serverURL: https://zzugzj.github.io
+  visitor: true
+  comment: true
+  emoji:
+    - "@waline/emojis@latest/bilibili/"
+    - "@waline/emojis@latest/weibo/"
+    - "@waline/emojis@latest/qq/"
+  locale:
+    placeholder: 填写邮箱，可以收到回复通知哦～
+  requiredMeta: [nick]
+
+twikoo:
+  enable: true
+  envId: test-1c8fe2
+github_issues:
+  enable: false
+
+github_discussions:
+  enable: false
+
+disqusjs:
+  enable: false
+  shortname: gzj
+  apikey: ouoGQCaamOKdJgyZU5DKcpFnRIg3SNzvk0nwygPtlcTRJuE68c8igvrZGW4wAJoN
+
+giscus:
+  enable: false
+  repo: YunYouJun/yunyoujun.github.io
+  repo-id:
+  category-id:
+  mapping: pathname
+  reactions-enabled: 1
+  emit-metadata: 0
+  theme: light
+
+engine_search:
+  enable: false
+local_search:
+  enable: true
+  # ...
+
+google_analytics:
+  enable: true
+  id: G-1LL0D86CY9
+iconify:
+  global: true
+medium_zoom: true
+google_adsense:
+  enable: true
+  client: ca-pub-2245427233262012
+google_tagmanager:
+  enable: true
+  id: GTM-M9KWR9L
+wordcount:
+  enable: true
+post_edit:
+  enable: false
+cursor:
+  enable: true
+baidu_push: true
+albums:
+  enable: true
 pages:
 post_meta:
   item_text: true

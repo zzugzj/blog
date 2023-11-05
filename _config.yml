@@ -4,12 +4,16 @@
 
 # Site
 title: gzj-blogs
-subtitle: ''
-description: ''
+subtitle: 'All at sea.'
+description: '希望能成为一个有趣的人'
 keywords:
+  - Blog
+  - 博客
+  - gzj
+  - gaozhongjian
 author: gzj
 language: zh-CN
-timezone: ''
+timezone: 'Asia/Shanghai'
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'
