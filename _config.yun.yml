@@ -13,8 +13,6 @@ social:
     link: mailto:10456430552@qq.com
     icon: icon-mail-line
     color: '#8E71C1'
-local_search:
-  enable: true
 banner:
   enable: true
   title: 莫在浮沙筑高台
